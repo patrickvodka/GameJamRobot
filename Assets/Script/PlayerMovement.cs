@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    public Rigidbody rb;
     public float playerSpeed;
     public float jumpForce;
     private Vector3 velocity= Vector2.zero;
     private float horisontalMovemant;
     public float distanceCheckGrounded = 0.5f;
-    public LayerMask groundLayer;
-
+    [SerializeField] private LayerMask ground;
+    [SerializeField] [NotNull] public Transform groundCheck;
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -27,10 +28,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            Vector2 vel = rb.velocity;
-            vel.y = jumpForce;
-            rb.velocity = vel;
-            Debug.Log("jump");
+            rb.velocity = Vector2.up * jumpForce;
         }
     }
 
@@ -41,17 +39,9 @@ public class PlayerMovement : MonoBehaviour
          Vector3 tagetVelocity = new Vector2(horisontalMovemant, rb.velocity.y);
         rb.velocity = Vector3.SmoothDamp(rb.velocity,tagetVelocity,ref velocity,.5f);
     }
-    
-    private bool IsGrounded()
-    {
-        Vector2 position = transform.position;
-        Vector2 direction = Vector2.down;
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distanceCheckGrounded, groundLayer);
-        if (hit.collider != null)
-        {
-            return true;
-        }
 
-        return false;
+    bool IsGrounded()
+    {
+        return Physics.CheckSphere(groundCheck.position, 1f, ground);
     }
 }
