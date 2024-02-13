@@ -2,64 +2,87 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine.Serialization;
-
+//[ExecuteInEditMode]
 public class GhostTrail : MonoBehaviour
 {
     public float cloneRegisterTime;
     public float cloneSpawnTimer;
-    private GameObject ghostClone;
+    public  GameObject Clone;
     private GameObject ghostStacks;
     public bool canSpawn=false;
     public bool hasSpawn=false;
     [SerializeField]private bool canRegister=false;
-    private bool hasRegister=false;
+    private bool hasRegister,changeState=false;
     private bool startSpawn;
+    private bool blockWorking=false;
+    private int currentStateNbr = 0;
     private int currentPosSpawn = 0;
     private int currentPosRegister = 0;
     public List<Vector2> Pos2D_1;
     public List<Vector2> Pos2D_2;
     public List<Vector2> Pos2D_3;
     // je vais les mettre dans un scriptable object et copier le contenue a chaque mort  ici 
-    private GhostState currentState;
+    private int maxNbrOfClones { get; set; }
+    private int currentNbrClones;
 
     private enum GhostState
     {
-        idle,
-        Register,
-        Spawning
+        clone1,
+        clone2,
+        clone3,
+        Dead
         
     }
     private void Awake()
     {
         Pos2D_1 = new List<Vector2>();
-        ghostStacks = gameObject;
-        ghostClone =ghostStacks;
+        Pos2D_2 = new List<Vector2>();
+        Pos2D_3 = new List<Vector2>();
+        Clone = gameObject;
     }
 
     private void Start()
     {
-        
+        maxNbrOfClones = 3;
+        currentNbrClones = 1;
     }
 
     public void FixedUpdate()
     {
         
+        if (canSpawn && !canRegister)
+        {
+            if (currentPosSpawn  == Pos2D_1.Count && currentPosSpawn!=0)
+            {
+                Debug.Log("END");
+                canSpawn = false;
+                return;
+            }
+
+            StartCoroutine(SpawnClone());
+        }
     }
 
     private void Update()
+    {
+    }
+
+    private void LateUpdate()
     {
         if ( Input.GetKeyDown(KeyCode.A))
         {
             canRegister = false;
             canSpawn = true;
+            Debug.Log("SecondStart");
         }
         if ((Input.GetKeyDown(KeyCode.E)))
         {
             canRegister = true;
             canSpawn = false;
-
-            Debug.Log($"{canSpawn}");
+            Debug.Log("start");
+            
         }
         
         if (!canSpawn && canRegister)
@@ -67,16 +90,7 @@ public class GhostTrail : MonoBehaviour
             StartCoroutine(RegisteringClone(cloneRegisterTime));
         }
 
-        if (canSpawn && !canRegister)
-        {
-            if (currentPosSpawn  == Pos2D_1.Count && currentPosSpawn!=0)
-            {
-                Debug.Log("END");
-                return;
-            }
-
-            StartCoroutine(SpawnClone(cloneSpawnTimer));
-        }
+        
     }
 
     private IEnumerator RegisteringClone(float TimeSpawn)
@@ -89,12 +103,12 @@ public class GhostTrail : MonoBehaviour
             //Debug.Log($"player = {playerPos2D} et le check = {check2d}");
             if (check2d != playerPos2D)
             {
-                Debug.Log("diff");
+                
                 Pos2D_1.Add(transform.position);
             }
             else
             {
-                Debug.Log("=");
+                
             }
         }
         else
@@ -109,25 +123,36 @@ public class GhostTrail : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnClone(float TimeSpawn)
+    private IEnumerator SpawnClone()
     {
         canSpawn = false;
         if (currentPosSpawn == 0)
         {
+           
             transform.position = Pos2D_1[0];
         }
         transform.position = Pos2D_1[currentPosSpawn];
-        yield return new WaitForSeconds(TimeSpawn);
+        yield return new WaitForSeconds(0);
         currentPosSpawn++;
         canSpawn = true;
 
     }
 
 
-    private void MultiSpawnClone()
+    public void ChangeCurrentState(int maxClone=3)
     {
         
+        if (currentNbrClones==maxClone+1)
+        {
+            Debug.Log("dead");
+        }
+        else
+        {
+            currentNbrClones+=1;
+            
+        }
     }
+    
 }
 
     
