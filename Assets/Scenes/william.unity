@@ -264,6 +264,7 @@ GameObject:
   - component: {fileID: 382407379}
   - component: {fileID: 382407384}
   - component: {fileID: 382407383}
+  - component: {fileID: 382407385}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -398,13 +399,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  playerSpeed: 12
+  playerSpeed: 30
   jumpForce: 6
   distanceCheckGrounded: 100
   ground:
     serializedVersion: 2
     m_Bits: 64
   groundCheck: {fileID: 410746309}
+  airControl: 90
+--- !u!114 &382407385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382407378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c45d36fd38b6e4391b05c2b42dd4dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityScale: 1.5
 --- !u!1 &410746308
 GameObject:
   m_ObjectHideFlags: 0
