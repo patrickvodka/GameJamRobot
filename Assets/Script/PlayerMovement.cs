@@ -40,12 +40,11 @@ public class PlayerMovement : MonoBehaviour
         {
             horisontalMovemant=playerSpeed * Input.GetAxis("Horizontal");
             Vector3 tagetVelocity = new Vector2(horisontalMovemant, rb.velocity.y);
-            rb.velocity = Vector3.SmoothDamp(rb.velocity,tagetVelocity,ref velocity,.5f);
+            rb.velocity = Vector3.SmoothDamp(rb.velocity,tagetVelocity,ref velocity,.2f);
         }
         else
         {
-            horisontalMovemant=airControl * Input.GetAxis("Horizontal");
-            rb.velocity = new Vector2(horisontalMovemant, rb.velocity.y);
+            
         }
     }
 
