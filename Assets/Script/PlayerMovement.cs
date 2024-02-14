@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     public float distanceCheckGrounded = 0.5f;
     [SerializeField] private LayerMask ground;
     [SerializeField] [NotNull] public Transform groundCheck;
-    [SerializeField] private float airControl=4;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -40,13 +39,9 @@ public class PlayerMovement : MonoBehaviour
         {
             horisontalMovemant=playerSpeed * Input.GetAxis("Horizontal");
             Vector3 tagetVelocity = new Vector2(horisontalMovemant, rb.velocity.y);
-            rb.velocity = Vector3.SmoothDamp(rb.velocity,tagetVelocity,ref velocity,.5f);
+            rb.velocity = Vector3.SmoothDamp(rb.velocity,tagetVelocity,ref velocity,.2f);
         }
-        else
-        {
-            horisontalMovemant=airControl * Input.GetAxis("Horizontal");
-            rb.velocity = new Vector2(horisontalMovemant, rb.velocity.y);
-        }
+        
     }
 
     [SerializeField] bool IsGrounded()
