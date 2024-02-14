@@ -14,18 +14,19 @@ public class GhostTrail : MonoBehaviour
     public bool canSpawn=false;
     public bool hasSpawn=false;
     [SerializeField]private bool canRegister=false;
-    private bool hasRegister,changeState=false;
+    private bool hasRegister,changeState,isExploding=false;
     private bool startSpawn;
     private bool blockWorking=false;
-    private int currentStateNbr = 0;
+    private int currentSpawnIndex = 0;
     private int currentPosSpawn = 0;
     private int currentPosRegister = 0;
-    public List<Vector2> Pos2D_1;
-    public List<Vector2> Pos2D_2;
-    public List<Vector2> Pos2D_3;
+    private int nonNullList=0;
+    [SerializeField] public List<Vector2>[] ListParentPos2D;
+    public List<GameObject>[] GO_Clone;
+        // peut faire un dictionnaire
     // je vais les mettre dans un scriptable object et copier le contenue a chaque mort  ici 
-    private int maxNbrOfClones { get; set; }
-    private int currentNbrClones;
+    public int maxNbrOfClones { get; set; } = 3;
+    private int currentNbrClones=0;
 
     private enum GhostState
     {
@@ -37,16 +38,21 @@ public class GhostTrail : MonoBehaviour
     }
     private void Awake()
     {
-        Pos2D_1 = new List<Vector2>();
-        Pos2D_2 = new List<Vector2>();
-        Pos2D_3 = new List<Vector2>();
-        Clone = gameObject;
+        ListParentPos2D = new List<Vector2>[maxNbrOfClones];
+        for (int i = 0; i < maxNbrOfClones; i++)
+        {
+            Debug.Log($"création de sous {ListParentPos2D[i]}");
+            ListParentPos2D[i] = new List<Vector2>();
+        }
+        Debug.Log($"main liste {ListParentPos2D}");
+       // GO_Clone = new List<GameObject>[maxNbrOfClones];
+        //Clone = gameObject;
     }
 
     private void Start()
     {
-        maxNbrOfClones = 3;
-        currentNbrClones = 1;
+        
+        CloneSpawnNbr();
     }
 
     public void FixedUpdate()
@@ -54,14 +60,15 @@ public class GhostTrail : MonoBehaviour
         
         if (canSpawn && !canRegister)
         {
-            if (currentPosSpawn  == Pos2D_1.Count && currentPosSpawn!=0)
+            if (blockWorking)
             {
                 Debug.Log("END");
                 canSpawn = false;
+                
                 return;
             }
 
-            StartCoroutine(SpawnClone());
+            SpawnCloneManager();
         }
     }
 
@@ -84,8 +91,13 @@ public class GhostTrail : MonoBehaviour
             Debug.Log("start");
             
         }
+        if ( Input.GetKeyDown(KeyCode.F))
+        {
+            ChangeCurrentState();
+            Debug.Log("State++");
+        }
         
-        if (!canSpawn && canRegister)
+        if (!canSpawn && canRegister && !blockWorking)
         {
             StartCoroutine(RegisteringClone(cloneRegisterTime));
         }
@@ -93,27 +105,26 @@ public class GhostTrail : MonoBehaviour
         
     }
 
+
     private IEnumerator RegisteringClone(float TimeSpawn)
     {
         canRegister = false;
-        if (currentPosRegister != 0)
+        Debug.Log("test");
+        if (currentPosRegister != 0 && currentPosRegister > 0 && currentPosRegister <= ListParentPos2D[currentNbrClones].Count )
         {
-            var check2d = Pos2D_1[Pos2D_1.Count - 1];
+            var check2dBefore = ListParentPos2D[currentNbrClones][currentPosRegister-1];
+            
             var playerPos2D = new Vector2(transform.position.x, transform.position.y);
             //Debug.Log($"player = {playerPos2D} et le check = {check2d}");
-            if (check2d != playerPos2D)
+            if (check2dBefore != playerPos2D)
             {
                 
-                Pos2D_1.Add(transform.position);
-            }
-            else
-            {
-                
+                ListParentPos2D[currentNbrClones].Add(transform.position);
             }
         }
         else
         {
-            Pos2D_1.Add(transform.position);
+            ListParentPos2D[currentNbrClones].Add(transform.position);
         }
         yield return new WaitForSeconds(TimeSpawn);
         currentPosRegister++;
@@ -123,33 +134,72 @@ public class GhostTrail : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnClone()
+    private IEnumerator SpawnClone(List<Vector2> SubPos2D,int currentSpawnIndexIE)
     {
-        canSpawn = false;
-        if (currentPosSpawn == 0)
-        {
-           
-            transform.position = Pos2D_1[0];
-        }
-        transform.position = Pos2D_1[currentPosSpawn];
-        yield return new WaitForSeconds(0);
-        currentPosSpawn++;
-        canSpawn = true;
+        transform.position = SubPos2D[currentSpawnIndexIE];
+
+        yield return null;
+        //yield return new WaitForSeconds(cloneSpawnTimer*Time.fixedDeltaTime);
 
     }
 
+    private void CloneSpawnNbr()
+    {
+        currentSpawnIndex = 0;
+        nonNullList = 0;
+        foreach (var listChildPos in ListParentPos2D)
+        {
+            if (listChildPos != null || listChildPos.Count > 0)
+            {
+                nonNullList++;
+            }
+            
+        }
+        
+    }
 
-    public void ChangeCurrentState(int maxClone=3)
+    private void SpawnCloneManager()
+    {
+        int allNullList = 0;
+        
+        for (int i = 0; i < nonNullList; i++)
+        {
+            if (ListParentPos2D[i] != null && currentSpawnIndex < ListParentPos2D[i].Count && ListParentPos2D[i][currentSpawnIndex] != null)
+            {
+                Debug.Log($"Index out of range: currentSpawnIndex ({currentSpawnIndex}) >= ListParentPos2D[{i}].Count ({ListParentPos2D[i].Count})");
+                StartCoroutine(SpawnClone(ListParentPos2D[i], currentSpawnIndex ));
+            }
+            else
+            {
+                allNullList++;
+            }
+            
+        }
+        if(allNullList == nonNullList)
+        {
+            blockWorking = true;
+            canSpawn = false;
+            currentSpawnIndex = 0;
+        }
+
+        currentSpawnIndex++;
+    }
+    public void ChangeCurrentState()
     {
         
-        if (currentNbrClones==maxClone+1)
+        if (currentNbrClones+1==maxNbrOfClones)
         {
             Debug.Log("dead");
         }
         else
         {
+            currentSpawnIndex = 0;
+            currentPosRegister = 0;
             currentNbrClones+=1;
+            blockWorking = false;
+            canRegister = true;
             
+
         }
     }
     
