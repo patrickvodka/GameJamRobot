@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -12,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private float horisontalMovemant;
     public float distanceCheckGrounded = 0.5f;
     [SerializeField] private LayerMask ground;
-    [SerializeField] [NotNull] public Transform groundCheck;
+    [SerializeField] private float CooldownJump = 5.0f;
+    private float TimeSinceJump = 6.0f;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,13 +24,23 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Jump();
+        TimeSinceJump += Time.deltaTime;
+    }
+
+    private void FixedUpdate()
+    {
+        if(Input.GetAxis("Horizontal")==0 && IsGrounded() && Input.GetButtonUp("Jump"))
+        {
+            rb.velocity= Vector3.zero;
+        }
     }
 
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (Input.GetButtonDown("Jump") && IsGrounded() && TimeSinceJump > CooldownJump)
         {
             rb.velocity = Vector2.up * jumpForce;
+            TimeSinceJump = 0.0f;
         }
     }
 
@@ -41,12 +53,18 @@ public class PlayerMovement : MonoBehaviour
             Vector3 tagetVelocity = new Vector2(horisontalMovemant, rb.velocity.y);
             rb.velocity = Vector3.SmoothDamp(rb.velocity,tagetVelocity,ref velocity,.2f);
         }
+        else
+        {
+            print("no");
+        }
         
     }
 
-    [SerializeField] bool IsGrounded()
+    
+    
+    private bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, 1f, ground);
+        return Physics.Raycast(transform.position, Vector3.down, distanceCheckGrounded, ground)!= null;
     }
 
    
