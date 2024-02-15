@@ -15,13 +15,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask ground;
     [SerializeField] private float CooldownJump = 5.0f;
     private float TimeSinceJump = 6.0f;
+    [Header("SpawnOfPlayer")]
+    public Transform spawnPlayer;
+    private bool firstInput;
+    [HideInInspector]public bool thing;
+    private bool isRebooting;
+    private GhostTrail ghostTrail;
     void Start()
     {
+        firstInput = false;
+        ghostTrail = GetComponent<GhostTrail>();
         rb = GetComponent<Rigidbody>();
+        GameManager.Instance.PlayerStarted(gameObject, transform.position);
+
     }
 
     void Update()
     {
+        Suicide();
+        CheckFirstInput();
         Move();
         Jump();
         TimeSinceJump += Time.deltaTime;
@@ -58,6 +70,37 @@ public class PlayerMovement : MonoBehaviour
             print("no");
         }
         
+    }
+    private void Suicide()
+    {
+        if (Input.GetButtonUp("Jump")) {
+            ghostTrail.canRegister = false;
+            isRebooting = true;
+            GameManager.Instance.SpawnPlayer(0);
+        }
+        
+    }
+    private void CheckFirstInput()
+    {
+        
+        if (!firstInput)
+        {
+            if (Input.GetButtonUp("Jump") || Input.GetAxis("Horizontal") != 0)
+            {
+                Debug.Log("input");
+                Debug.Log($"current = {ghostTrail.currentNbrClones}");
+                firstInput = true;
+                ghostTrail.StartRegister();
+                if (ghostTrail.currentNbrClones != 0)
+                {
+                    ghostTrail.StartSpawning();
+                }
+            }
+        }
+        else
+        {
+            return;
+        }
     }
 
     
