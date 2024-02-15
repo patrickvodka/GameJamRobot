@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     [CanBeNull] public static GameManager Instance;
     public GameState State; 
     private GameObject Player;
-    public float respawnTIme;
+    private Vector2 lastDeadPos;
+    public float respawnTime;
     private Vector2 PlayerSpawnPos;
     private bool CanPlayerSpawn;
     public static event Action<GameState> OnGameStateChanged;
@@ -17,7 +18,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
+        transform.position = new Vector3(-500, -500, -500);
+
     }
 
     private void Start()
@@ -76,10 +78,10 @@ public class GameManager : MonoBehaviour
     {
         LevelManager.LoadMainMenu();
     }
-    public IEnumerator SpawnPlayer(float Time)
+    public IEnumerator SpawnPlayer(Vector2 DeadPos)
     {
-        yield return new WaitForSeconds(Time);
-        
+        yield return new WaitForSeconds(respawnTime);
+        RespawnPlayer();
     }
 
     public void PlayerStarted(GameObject player , Vector2 playerSpawn)
@@ -88,7 +90,7 @@ public class GameManager : MonoBehaviour
         PlayerSpawnPos = playerSpawn;
         Debug.Log(playerSpawn);
     }
-    public void RespawnPlayer()
+    private void RespawnPlayer()
     {
 
     }
