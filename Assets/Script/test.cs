@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
-{ 
-    [CanBeNull] public static GameManager Instance;
-    public GameState State; 
-    private GameObject Player;
-    public float respawnTIme;
-    private Vector2 PlayerSpawnPos;
-    private bool CanPlayerSpawn;
+public class test : MonoBehaviour
+{
+    [CanBeNull] public static test Instance;
+    public GameState State;
     public static event Action<GameState> OnGameStateChanged;
+    private bool CanPlayerSpawn;
+    private Vector2 PlayerSpawnPos;
+    public float respawnTIme;
+    private GameObject Player;
 
     private void Awake()
     {
         Instance = this;
-        
+       
     }
 
     private void Start()
@@ -43,39 +43,32 @@ public class GameManager : MonoBehaviour
             case GameState.ReloadLevel:
                 HandReloadLevel();
                 break;
-            case GameState.NewGame:
-                HandNewGame();
-                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newsState), newsState, null);
         }
         OnGameStateChanged?.Invoke(newsState);
     }
 
-    private void HandNewGame()
-    {
-        LevelManager.LoadFirstLevel();
-    }
-
     private void HandReloadLevel()
     {
-        LevelManager.RestartLevel();
+        throw new NotImplementedException();
     }
 
     private void HandLose()
     {
-        LevelManager.RestartLevel();
+        throw new NotImplementedException();
     }
 
     private void HandVictory()
     {
-        LevelManager.LoadNextLevel();
+        throw new NotImplementedException();
     }
 
     private void HandSelectLevel()
     {
-        LevelManager.LoadMainMenu();
+        throw new NotImplementedException();
     }
+
     public IEnumerator SpawnPlayer(float Time)
     {
         yield return new WaitForSeconds(Time);
@@ -98,7 +91,7 @@ public class GameManager : MonoBehaviour
         SelectLevel, 
         Victory, 
         Lose, 
-        ReloadLevel,
-        NewGame
+        ReloadLevel
     }
 }
+

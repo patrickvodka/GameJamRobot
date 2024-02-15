@@ -5,16 +5,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine.Serialization;
 using System.Linq;
+using static GameManager;
 //[ExecuteInEditMode]
+//[]
 public class GhostTrail : MonoBehaviour
 {
     public VectorListData vectorListData;
     public float cloneRegisterTime;
     public float cloneSpawnTimer;
     public  GameObject Clone;
-    [SerializeField]private bool canSpawn { set; get; } = false;
-    [SerializeField]private bool canRegister{ set; get; } = false;
-    private bool hasRegister,changeState,isExploding=false;
+    [HideInInspector] public bool canSpawn= false;
+    [HideInInspector]public bool canRegister= false;
     private bool startSpawn;
     private bool blockWorking=false;
     private int currentSpawnIndex = 0;
@@ -22,12 +23,14 @@ public class GhostTrail : MonoBehaviour
     private int currentPosRegister = 0;
     private int nonNullList=0;
     private bool hasSpawnClones=false;
-    [SerializeField] public List<Vector2>[] ListParentPos2D;
+    //public List<List<GameObject> WeaponSlots = new List<GameObject>(4);
+    public List<Vector2>[] ListParentPos2D;
+   
     private GameObject[] GO_Clone;
         // peut faire un dictionnaire
     // je vais les mettre dans un scriptable object et copier le contenue a chaque mort  ici 
     public int maxNbrOfClones= 3;
-    private int currentNbrClones=0;
+    [HideInInspector]public int currentNbrClones=0;
 
     private enum GhostState
     {
@@ -44,6 +47,7 @@ public class GhostTrail : MonoBehaviour
         for (int i = 0; i < maxNbrOfClones; i++)
         {
             ListParentPos2D[i] = new List<Vector2>();
+            
         }
         
         
@@ -51,8 +55,8 @@ public class GhostTrail : MonoBehaviour
 
     private void Start()
     {
-        vectorListData.vectorList.Clear();
-        CloneSpawnNbr();
+        //vectorListData.vectorList.Clear();
+        //CloneSpawnNbr();
     }
 
     public void FixedUpdate()
@@ -77,20 +81,23 @@ public class GhostTrail : MonoBehaviour
         }
         if ( Input.GetKeyDown(KeyCode.K))
         {
-            vectorListData.vectorList = ListParentPos2D[0];
-            vectorListData.ConvertListToArray();
+            ChangeCurrentState();
             
         } 
     }
 
     private void LateUpdate()
     {
+        /*
         if ( Input.GetKeyDown(KeyCode.Q))
         {
+            CloneSpawnNbr();
             canRegister = false;
             canSpawn = true;
             Debug.Log("SecondStart");
         }
+        */
+        /*
         if ((Input.GetKeyDown(KeyCode.E)))
         {
             canRegister = true;
@@ -102,7 +109,7 @@ public class GhostTrail : MonoBehaviour
         {
             ChangeCurrentState();
             Debug.Log("State++");
-        }
+        }*/
         
         if (!canSpawn && canRegister && !blockWorking)
         {
@@ -111,13 +118,26 @@ public class GhostTrail : MonoBehaviour
 
         
     }
-
+    public void StartRegister()
+    {
+        canRegister = true;
+        canSpawn = false;
+        Debug.Log("startREGISTER");
+    }
+    public void StartSpawning()
+    {
+        canRegister = false;
+        CloneSpawnNbr();
+        canSpawn = true;
+        Debug.Log("startSPAWN");
+    }
+    
 
     private IEnumerator RegisteringClone(float TimeSpawn)
     {
         canRegister = false;
         Debug.Log("Registering");
-        if (currentPosRegister != 0 && currentPosRegister > 0 && currentPosRegister <= ListParentPos2D[currentNbrClones].Count )
+        if ( currentPosRegister > 0 && currentPosRegister <= ListParentPos2D[currentNbrClones].Count )
         {
             var check2dBefore = ListParentPos2D[currentNbrClones][currentPosRegister-1];
             
@@ -143,7 +163,7 @@ public class GhostTrail : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnClone(List<Vector2> SubPos2D,int currentSpawnIndexIE,float Spawntime,int GO_enemy)
+    private IEnumerator MoveClone(List<Vector2> SubPos2D,int currentSpawnIndexIE,float Spawntime,int GO_enemy)
     {
         GO_Clone[GO_enemy].transform.position =  SubPos2D[currentSpawnIndexIE];
         yield return null;
@@ -158,11 +178,12 @@ public class GhostTrail : MonoBehaviour
         nonNullList = 0;
         foreach (var listChildPos in ListParentPos2D)
         {
-            if (listChildPos != null || listChildPos.Count > 0)
+            if (listChildPos.Count > 0 && listChildPos != null)
             {
+               
                 nonNullList++;
             }
-            
+           
         }
         
     }
@@ -171,9 +192,11 @@ public class GhostTrail : MonoBehaviour
     {
         if (!hasSpawnClones)
         {
+            
             hasSpawnClones = true;
             for (int i = 0; i < nonNullList; i++)
             {
+                
                 var PosSpawn = ListParentPos2D[0][0];
                 GO_Clone[i] = Instantiate(Clone, new Vector3(PosSpawn.x, PosSpawn.y, transform.position.z),
                     Quaternion.identity);
@@ -186,7 +209,7 @@ public class GhostTrail : MonoBehaviour
             if (ListParentPos2D[i] != null && currentSpawnIndex < ListParentPos2D[i].Count && ListParentPos2D[i][currentSpawnIndex] != null)
             {
                 //Debug.Log($"Index out of range: currentSpawnIndex ({currentSpawnIndex}) >= ListParentPos2D[{i}].Count ({ListParentPos2D[i].Count})");
-                StartCoroutine(SpawnClone(ListParentPos2D[i], currentSpawnIndex,cloneSpawnTimer,i ));
+                StartCoroutine(MoveClone(ListParentPos2D[i], currentSpawnIndex,cloneSpawnTimer,i ));
             }
             else
             {
@@ -208,6 +231,7 @@ public class GhostTrail : MonoBehaviour
         
         if (currentNbrClones+1==maxNbrOfClones)
         {
+            GameManager.Instance.UpdateGameState(GameState.Lose);
             Debug.Log("dead");
         }
         else
@@ -217,11 +241,9 @@ public class GhostTrail : MonoBehaviour
             currentNbrClones+=1;
             blockWorking = false;
             canRegister = true;
-            
+            hasSpawnClones = false;
 
         }
     }
     
 }
-
-    
