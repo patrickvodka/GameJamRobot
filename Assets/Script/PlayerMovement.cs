@@ -11,9 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     private Vector3 velocity= Vector2.zero;
     private float horisontalMovemant;
-    public float distanceCheckGrounded = 0.5f;
     [SerializeField] private LayerMask ground;
-    [SerializeField] private float CooldownJump = 5.0f;
+    [SerializeField] private float CooldownJump = .5f;
     private float TimeSinceJump = 6.0f;
     [Header("SpawnOfPlayer")]
     public Transform spawnPlayer;
@@ -21,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]public bool thing;
     private bool isRebooting;
     private GhostTrail ghostTrail;
+    [SerializeField] [NotNull] public Transform groundCheck;
     void Start()
     {
         firstInput = false;
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(Input.GetAxis("Horizontal")==0 && IsGrounded() && Input.GetButtonUp("Jump"))
+        if(Input.GetAxis("Horizontal")==0 && IsGrounded() && rb.velocity.y==0)
         {
             rb.velocity= Vector3.zero;
         }
@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     
     private bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, distanceCheckGrounded, ground)!= null;
+        return Physics.CheckSphere(groundCheck.position, 1f, ground);
     }
 
    
