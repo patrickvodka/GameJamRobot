@@ -10,9 +10,10 @@ public class GameManager : MonoBehaviour
     public GameState State; 
     private GameObject Player;
     private Vector2 lastDeadPos;
-    public float respawnTime;
+    public float respawnTime=1.5f;
     private Vector2 PlayerSpawnPos;
     private bool CanPlayerSpawn;
+    
     public static event Action<GameState> OnGameStateChanged;
 
     private void Awake()
@@ -78,21 +79,25 @@ public class GameManager : MonoBehaviour
     {
         LevelManager.LoadMainMenu();
     }
-    public IEnumerator SpawnPlayer(Vector2 DeadPos)
+    public IEnumerator SpawnPlayerTimer()
     {
-        yield return new WaitForSeconds(respawnTime);
+        Player.transform.position = transform.position;
+      yield return new WaitForSeconds(respawnTime);
         RespawnPlayer();
     }
 
+
     public void PlayerStarted(GameObject player , Vector2 playerSpawn)
     {
+        
         Player = player;
         PlayerSpawnPos = playerSpawn;
-        Debug.Log(playerSpawn);
     }
     private void RespawnPlayer()
     {
-
+        Player.transform.position = PlayerSpawnPos;
+        var move = Player.GetComponent<PlayerMovement>();
+            move.StartCoroutine(move.StartMoving());
     }
 
     public enum GameState

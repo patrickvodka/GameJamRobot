@@ -14,10 +14,10 @@ public class GhostTrail : MonoBehaviour
     public float cloneRegisterTime;
     public float cloneSpawnTimer;
     public  GameObject Clone;
-    [HideInInspector] public bool canSpawn= false;
-    [HideInInspector]public bool canRegister= false;
+    /*[HideInInspector]*/ public bool canSpawn= false;
+    /*[HideInInspector]*/public bool canRegister= false;
     private bool startSpawn;
-    private bool blockWorking=false;
+    /*[HideInInspector]*/public bool blockWorking=false;
     private int currentSpawnIndex = 0;
     private int currentPosSpawn = 0;
     private int currentPosRegister = 0;
@@ -79,40 +79,15 @@ public class GhostTrail : MonoBehaviour
 
             SpawnCloneManager();
         }
-        if ( Input.GetKeyDown(KeyCode.K))
-        {
-            ChangeCurrentState();
-            
-        } 
+        
     }
 
     private void LateUpdate()
     {
-        /*
-        if ( Input.GetKeyDown(KeyCode.Q))
-        {
-            CloneSpawnNbr();
-            canRegister = false;
-            canSpawn = true;
-            Debug.Log("SecondStart");
-        }
-        */
-        /*
-        if ((Input.GetKeyDown(KeyCode.E)))
-        {
-            canRegister = true;
-            canSpawn = false;
-            Debug.Log("start");
-            
-        }
-        if ( Input.GetKeyDown(KeyCode.F))
-        {
-            ChangeCurrentState();
-            Debug.Log("State++");
-        }*/
-        
+        Debug.Log($"NOMBRE DE CLONE = {currentNbrClones}");
         if (!canSpawn && canRegister && !blockWorking)
         {
+            
             StartCoroutine(RegisteringClone(cloneRegisterTime));
         }
 
@@ -121,6 +96,7 @@ public class GhostTrail : MonoBehaviour
     public void StartRegister()
     {
         canRegister = true;
+        blockWorking = false;
         canSpawn = false;
         Debug.Log("startREGISTER");
     }
@@ -137,27 +113,20 @@ public class GhostTrail : MonoBehaviour
     {
         canRegister = false;
         Debug.Log("Registering");
-        if ( currentPosRegister > 0 && currentPosRegister <= ListParentPos2D[currentNbrClones].Count )
-        {
-            var check2dBefore = ListParentPos2D[currentNbrClones][currentPosRegister-1];
-            
-            var playerPos2D = new Vector2(transform.position.x, transform.position.y);
-           
-            if (check2dBefore != playerPos2D)
-            {
-                
-                ListParentPos2D[currentNbrClones].Add(transform.position);
-            }
-        }
-        else
-        {
+        
             ListParentPos2D[currentNbrClones].Add(transform.position);
-        }
+            if (ListParentPos2D[currentNbrClones].Count > 0)
+            {
+                Debug.Log($"au dessus = {ListParentPos2D[currentNbrClones]}"); 
+            }
+            else
+            {
+                Debug.Log($"en dessous = {ListParentPos2D[currentNbrClones]}"); 
+            }
 
-        yield return null;
-        //yield return new WaitForSeconds(TimeSpawn);
-        currentPosRegister++;
-        if (!canSpawn)
+            yield return null;
+        
+        if (!canSpawn && !blockWorking)
         {
             canRegister = true;
         }
@@ -172,19 +141,20 @@ public class GhostTrail : MonoBehaviour
 
     }
 
-    private void CloneSpawnNbr()
+    public void CloneSpawnNbr()
     {
         currentSpawnIndex = 0;
         nonNullList = 0;
         foreach (var listChildPos in ListParentPos2D)
         {
-            if (listChildPos.Count > 0 && listChildPos != null)
+            if (listChildPos.Count > 0 )
             {
                
                 nonNullList++;
             }
            
         }
+        Debug.Log($"liste de non null = {nonNullList}");
         
     }
 
@@ -196,7 +166,7 @@ public class GhostTrail : MonoBehaviour
             hasSpawnClones = true;
             for (int i = 0; i < nonNullList; i++)
             {
-                
+                Debug.Log($"nombre de clo,e ={currentNbrClones}");
                 var PosSpawn = ListParentPos2D[0][0];
                 GO_Clone[i] = Instantiate(Clone, new Vector3(PosSpawn.x, PosSpawn.y, transform.position.z),
                     Quaternion.identity);
@@ -219,7 +189,8 @@ public class GhostTrail : MonoBehaviour
         }
         if(allNullList == nonNullList)
         {
-            blockWorking = true;
+            Debug.Log("dqsdsfdsfgdsfdsfdsffdsffd");
+            //explosion
             canSpawn = false;
             currentSpawnIndex = 0;
         }
@@ -229,7 +200,7 @@ public class GhostTrail : MonoBehaviour
     public void ChangeCurrentState()
     {
         
-        if (currentNbrClones+1==maxNbrOfClones)
+        if (currentNbrClones-2==maxNbrOfClones)
         {
             GameManager.Instance.UpdateGameState(GameState.Lose);
             Debug.Log("dead");
@@ -237,10 +208,8 @@ public class GhostTrail : MonoBehaviour
         else
         {
             currentSpawnIndex = 0;
-            currentPosRegister = 0;
+            //currentPosRegister = 0;
             currentNbrClones+=1;
-            blockWorking = false;
-            canRegister = true;
             hasSpawnClones = false;
 
         }
