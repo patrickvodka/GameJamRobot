@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 3602159490103154732}
   - component: {fileID: 5742700688120756024}
   - component: {fileID: 1248178012097683534}
+  - component: {fileID: 4929853830511121126}
   m_Layer: 0
   m_Name: factorydoorsframe
   m_TagString: Untagged
@@ -273,3 +274,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &4929853830511121126
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127134508299897632}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.2457223, y: 3.6257153, z: 3.1424751}
+  m_Center: {x: 0.2859462, y: -0.010429323, z: -1.5789313}
