@@ -446,6 +446,52 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!1 &954092959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 954092960}
+  - component: {fileID: 954092961}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &954092960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954092959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 35.367157, y: -11.907158, z: 6.9201965}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &954092961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954092959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 259459c6b4825614883db567e857cbc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  State: 0
+  respawnTime: 1.5
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,13 +578,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13800788, y: -0, z: -0, w: 0.9904312}
-  m_LocalPosition: {x: 0, y: 25.3, z: -39.4}
+  m_LocalRotation: {x: 0.123745866, y: -0, z: -0, w: 0.992314}
+  m_LocalPosition: {x: 0, y: 7.1, z: -12.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 15.865, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 14.217, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,7 +714,7 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
---- !u!1001 &1869905658
+--- !u!1001 &1597110534
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -676,29 +722,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 336991008642148307, guid: 59e7eb56648a8af48967f82ecb3412c7, type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 336991008642148307, guid: 59e7eb56648a8af48967f82ecb3412c7, type: 3}
-      propertyPath: prewarm
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 2985787027459512455, guid: 59e7eb56648a8af48967f82ecb3412c7, type: 3}
+      propertyPath: Clone
+      value: 
+      objectReference: {fileID: 8491478094407544688, guid: 97b7e0cf351407c459640753bf8b18e5, type: 3}
     - target: {fileID: 8491478094407544688, guid: 59e7eb56648a8af48967f82ecb3412c7, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 9123196609706620362, guid: 59e7eb56648a8af48967f82ecb3412c7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.0457
+      value: -12
       objectReference: {fileID: 0}
     - target: {fileID: 9123196609706620362, guid: 59e7eb56648a8af48967f82ecb3412c7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.66499996
       objectReference: {fileID: 0}
     - target: {fileID: 9123196609706620362, guid: 59e7eb56648a8af48967f82ecb3412c7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.696224
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9123196609706620362, guid: 59e7eb56648a8af48967f82ecb3412c7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -740,4 +782,5 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 442521761}
-  - {fileID: 1869905658}
+  - {fileID: 1597110534}
+  - {fileID: 954092960}
