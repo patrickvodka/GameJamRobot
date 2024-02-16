@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
     }
     private void RespawnPlayer()
     {
-        Player.transform.position = PlayerSpawnPos;
+        Player.transform.position = PlayerSpawnPos; 
         var move = Player.GetComponent<PlayerMovement>();
             move.StartCoroutine(move.StartMoving());
     }

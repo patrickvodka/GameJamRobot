@@ -55,6 +55,12 @@ public class PlayerMovement : MonoBehaviour
         ChangePlayerOrientation();
     }
 
+    private void Restart()
+    {
+        if(Input.GetButtonDown("Fire2"))
+        LevelManager.RestartLevel();
+    }
+
     private void Jump()
     {
         if (Input.GetButtonDown("Jump") && IsGrounded() && TimeSinceJump > CooldownJump)
@@ -89,11 +95,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButtonUp("Jump") || Input.GetAxis("Horizontal") != 0)
             {
-                Debug.Log("input");
-                Debug.Log($"current = {ghostTrail.currentNbrClones}");
+               StartCoroutine(SetKinematic());
                 firstInput = true;
                 ghostTrail.StartRegister();
-                if (ghostTrail.currentNbrClones != 0)
+                if (ghostTrail.currentNbrClones > 0)
                 {
                     ghostTrail.StartSpawning();
                 }
@@ -142,11 +147,18 @@ public class PlayerMovement : MonoBehaviour
     {
         ghostTrail.blockWorking = false;
         ghostTrail.ChangeCurrentState();
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.1f);
         rb.isKinematic = false;
         blockInput = false;
         firstInput = false;
         
+    }
+
+    private IEnumerator SetKinematic()
+    {
+        rb.isKinematic = true;
+        yield return new WaitForSeconds(0.3f);
+        rb.isKinematic = false;
     }
     
 
