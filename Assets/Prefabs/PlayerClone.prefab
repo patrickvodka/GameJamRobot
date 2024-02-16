@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3838314645511912855}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.17, z: 0}
+  m_LocalPosition: {x: 0, y: 0.078, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -103,8 +103,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.080925584
+  m_Center: {x: -0.1330744, y: 0, z: 0}
 --- !u!1 &8428854350848619029
 GameObject:
   m_ObjectHideFlags: 0
@@ -5133,6 +5133,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e30a0c09917a8b74fad2e486f9ba17ed, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5307156461568766727}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e30a0c09917a8b74fad2e486f9ba17ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5530553902965093642}
   m_SourcePrefab: {fileID: 100100000, guid: e30a0c09917a8b74fad2e486f9ba17ed, type: 3}
 --- !u!1 &8491478094407544688 stripped
 GameObject:
@@ -5146,7 +5149,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8491478094407544688}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 35ee34c8506d7c04c84aab81b4bd8e71, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -5175,8 +5178,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exp: {fileID: 8491478094407544688}
-  expForce: 500
+  expForce: 750
   radius: 10
+--- !u!65 &5530553902965093642
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8491478094407544688}
+  m_Material: {fileID: 13400000, guid: 35ee34c8506d7c04c84aab81b4bd8e71, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 0.6, z: 0.5}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!4 &9123196609706620362 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e30a0c09917a8b74fad2e486f9ba17ed, type: 3}
