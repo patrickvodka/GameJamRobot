@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isRebooting;
     private GhostTrail ghostTrail;
     [SerializeField] [NotNull] public Transform groundCheck;
+    private const string HorizontalAxis = "Horizontal";
+    private const float InputThreshold = 0.1f;
+    private const float RotationZero = 0f;
     void Start()
     {
         firstInput = false;
@@ -37,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         Move();
         Jump();
         TimeSinceJump += Time.deltaTime;
+        
     }
 
     private void FixedUpdate()
@@ -45,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity= Vector3.zero;
         }
+        ChangePlayerOrientation();
     }
 
     private void Jump()
@@ -103,7 +109,21 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics.CheckSphere(groundCheck.position, 0.5f, ground);
+        
     }
+    private void ChangePlayerOrientation()
+    {
+        float horizontalInput = Input.GetAxis(HorizontalAxis);
+        if (horizontalInput> InputThreshold)
+        {
+            transform.rotation = Quaternion.Euler(RotationZero, RotationZero, RotationZero);
+        }
+        else if (horizontalInput < -InputThreshold)
+        {
+            transform.rotation = Quaternion.Euler(RotationZero,180, RotationZero);
+        }
+    }
+    
 
    
 }
