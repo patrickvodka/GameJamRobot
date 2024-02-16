@@ -6,7 +6,7 @@ public class  LevelManager : MonoBehaviour
 {
    
     
-    public static List<Scene> levels;
+    public Scene[] levels;
     public static void LoadLevel(int index)
     {
         //SceneManager.LoadScene(levels[index].name);
