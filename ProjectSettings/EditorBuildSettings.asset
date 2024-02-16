@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/LD_ Key_3B.unity
     guid: 3d381191d579be142bdbadcd8a2a655f
   - enabled: 1
-    path: Assets/Scenes/LD_ Launchpad_2B.unity
+    path: Assets/Scenes/LD_Playable/LD_ Launchpad_2B.unity
     guid: 2fd9a64439ba06541942ccddfaec7303
   - enabled: 1
     path: Assets/Scenes/LD_ LaunchSquare_3B.unity
@@ -33,31 +33,31 @@ EditorBuildSettings:
     path: Assets/Scenes/LD_ QRcode_3B.unity
     guid: 76e960831d29ed940b1dd4ee70ebf24d
   - enabled: 1
-    path: Assets/Scenes/LD_ WallBang_2B.unity
+    path: Assets/Scenes/LD_Playable/LD_ WallBang_2B.unity
     guid: 417c59e45fb8a7f4e884c27363ab2415
   - enabled: 1
     path: Assets/Scenes/LD_ChainExplosions_3B.unity
     guid: 100a66b2add117f4bb71954a8486cf89
   - enabled: 1
-    path: Assets/Scenes/LD_CrossingClimb_2.unity
+    path: Assets/Scenes/LD_Playable/LD_CrossingClimb_2.unity
     guid: 20c66b4521ac8ef4da65ad9fea9407f4
   - enabled: 1
     path: Assets/Scenes/LD_ExplodingJump_3B.unity
     guid: 7277d7d62bee1a24f9df994c9022ba73
   - enabled: 1
-    path: Assets/Scenes/LD_FirstSteps_2.unity
+    path: Assets/Scenes/LD_Playable/LD_FirstSteps_2.unity
     guid: 7e66c08087cc5064c932d795a960b917
   - enabled: 1
-    path: Assets/Scenes/LD_HeadStep_2.unity
+    path: Assets/Scenes/LD_Playable/LD_HeadStep_2.unity
     guid: b2268048e61b9ef42b95439383f77dcc
   - enabled: 1
     path: Assets/Scenes/LD_Julien_Template.unity
     guid: 46d19a87e5487244aa38eb1f44bdb4f3
   - enabled: 1
-    path: Assets/Scenes/LD_Stacking_2.unity
+    path: Assets/Scenes/LD_Playable/LD_Stacking_2.unity
     guid: 6093df3511276ef4b95e709ad65f0bc7
   - enabled: 1
-    path: Assets/Scenes/LD_ThroughWall_2B.unity
+    path: Assets/Scenes/LD_Playable/LD_ThroughWall_2B.unity
     guid: 03926878673bf2346ae3666f8604d324
   - enabled: 1
     path: Assets/Scenes/LD_Ways_3B.unity
