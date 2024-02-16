@@ -98822,6 +98822,10 @@ PrefabInstance:
       propertyPath: CooldownJump
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2985787027459512455, guid: 59e7eb56648a8af48967f82ecb3412c7, type: 3}
+      propertyPath: maxNbrOfClones
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8491478094407544688, guid: 59e7eb56648a8af48967f82ecb3412c7, type: 3}
       propertyPath: m_Name
       value: Player
