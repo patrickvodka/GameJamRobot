@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinishPoint : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class FinishPoint : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            var gameState = GameManager.GameState.Victory;
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
