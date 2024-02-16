@@ -59,16 +59,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if (IsGrounded())
-        {
+        
             horisontalMovemant=playerSpeed * Input.GetAxis("Horizontal");
             Vector3 tagetVelocity = new Vector2(horisontalMovemant, rb.velocity.y);
             rb.velocity = Vector3.SmoothDamp(rb.velocity,tagetVelocity,ref velocity,.2f);
-        }
-        else
-        {
-            print("no");
-        }
+        
         
     }
     private void Suicide()
@@ -107,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
     
     private bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, 1f, ground);
+        return Physics.CheckSphere(groundCheck.position, 0.5f, ground);
     }
 
    
