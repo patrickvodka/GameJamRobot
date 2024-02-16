@@ -7,59 +7,32 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
-    guid: 4f6e80de4aca96c42a57d770afb925df
-  - enabled: 1
-    path: Assets/Scenes/LD_ Carousel_3.unity
-    guid: fc590c9a5136da044b3c36b2ee7a2588
-  - enabled: 1
-    path: Assets/Scenes/LD_ Crossroads_3.unity
-    guid: 3aa06be362f60ea43a3fb2afbe317095
-  - enabled: 1
-    path: Assets/Scenes/LD_ FilledTemplate.unity
-    guid: 1d3b063376447fa4e8575d0044c1dee0
-  - enabled: 1
-    path: Assets/Scenes/LD_ HighTraffic_3B.unity
-    guid: a64df55e3ba4cd947b3bb3e70be8d462
-  - enabled: 1
-    path: Assets/Scenes/LD_ Key_3B.unity
-    guid: 3d381191d579be142bdbadcd8a2a655f
-  - enabled: 1
-    path: Assets/Scenes/LD_Playable/LD_ Launchpad_2B.unity
-    guid: 2fd9a64439ba06541942ccddfaec7303
-  - enabled: 1
-    path: Assets/Scenes/LD_ LaunchSquare_3B.unity
-    guid: 9dd926480ee0cc341a75b35fc98c72d0
-  - enabled: 1
-    path: Assets/Scenes/LD_ QRcode_3B.unity
-    guid: 76e960831d29ed940b1dd4ee70ebf24d
-  - enabled: 1
-    path: Assets/Scenes/LD_Playable/LD_ WallBang_2B.unity
-    guid: 417c59e45fb8a7f4e884c27363ab2415
-  - enabled: 1
-    path: Assets/Scenes/LD_ChainExplosions_3B.unity
-    guid: 100a66b2add117f4bb71954a8486cf89
-  - enabled: 1
-    path: Assets/Scenes/LD_Playable/LD_CrossingClimb_2.unity
-    guid: 20c66b4521ac8ef4da65ad9fea9407f4
-  - enabled: 1
-    path: Assets/Scenes/LD_ExplodingJump_3B.unity
-    guid: 7277d7d62bee1a24f9df994c9022ba73
+    guid: 0db6ca56c2b059d4e8242996dade04c4
   - enabled: 1
     path: Assets/Scenes/LD_Playable/LD_FirstSteps_2.unity
     guid: 7e66c08087cc5064c932d795a960b917
   - enabled: 1
-    path: Assets/Scenes/LD_Playable/LD_HeadStep_2.unity
-    guid: b2268048e61b9ef42b95439383f77dcc
-  - enabled: 1
-    path: Assets/Scenes/LD_Julien_Template.unity
-    guid: 46d19a87e5487244aa38eb1f44bdb4f3
-  - enabled: 1
     path: Assets/Scenes/LD_Playable/LD_Stacking_2.unity
     guid: 6093df3511276ef4b95e709ad65f0bc7
   - enabled: 1
-    path: Assets/Scenes/LD_Playable/LD_ThroughWall_2B.unity
-    guid: 03926878673bf2346ae3666f8604d324
+    path: Assets/Scenes/LD_Playable/LD_CrossingClimb_2.unity
+    guid: 20c66b4521ac8ef4da65ad9fea9407f4
   - enabled: 1
-    path: Assets/Scenes/LD_Ways_3B.unity
-    guid: ad3320c63da056b4ca8959c5b482b818
+    path: Assets/Scenes/LD_Playable/LD_Bridge_2.unity
+    guid: 32d8661be3ff4284982d830cedae2d8c
+  - enabled: 1
+    path: Assets/Scenes/LD_Playable/LD_ Launchpad_2B.unity
+    guid: 2fd9a64439ba06541942ccddfaec7303
+  - enabled: 1
+    path: Assets/Scenes/LD_Playable/LD_DiagonalDash_2B.unity
+    guid: 79d79dae79965fc43abd4548ee8fe0c2
+  - enabled: 1
+    path: Assets/Scenes/LD_Playable/LD_ThroughWall_2B.unity
+    guid: cfe39573ec2342c4999568a83d6da544
+  - enabled: 1
+    path: Assets/Scenes/LD_Playable/LD_ WallBang_2B.unity
+    guid: 417c59e45fb8a7f4e884c27363ab2415
+  - enabled: 1
+    path: Assets/Scenes/LD_Playable/LD_HeadStep_2.unity
+    guid: b2268048e61b9ef42b95439383f77dcc
   m_configObjects: {}
