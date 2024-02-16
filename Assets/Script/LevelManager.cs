@@ -12,20 +12,21 @@ public class LevelManager : MonoBehaviour
 
     private static int previousSceneIndex = -1;
 
-    public Scene[] levels;
-
+    public static Scene[] levels;
+    public static int currentLevelIndex = 0;
 
 
 
     public static void LoadLevel(int index)
     {
-        previousSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(index);
+        if (index < 0 || index >= levels.Length) return;
+        SceneManager.LoadScene(levels[index].name);
+        currentLevelIndex = index;
     }
 
     public static void LoadNextLevel()
     {
-        LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        LoadLevel(currentLevelIndex + 1);
     }
 
     public static void LoadFirstLevel()
