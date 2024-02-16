@@ -10,6 +10,7 @@ public class FinishPoint : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
+            print("Go next");
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
