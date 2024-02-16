@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 5742700688120756024}
   - component: {fileID: 1248178012097683534}
   - component: {fileID: 4929853830511121126}
+  - component: {fileID: 7177715364495011347}
   m_Layer: 0
   m_Name: factorydoorsframe
   m_TagString: Untagged
@@ -293,5 +294,17 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.2457223, y: 3.6257153, z: 3.1424751}
-  m_Center: {x: 0.2859462, y: -0.010429323, z: -1.5789313}
+  m_Size: {x: 5.235736, y: 3.6257153, z: 3.1424751}
+  m_Center: {x: -1.8749379, y: -0.010429323, z: -1.5789313}
+--- !u!114 &7177715364495011347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127134508299897632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7781e1656ec3d4d9c3b0b497b5c303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
