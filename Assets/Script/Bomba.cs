@@ -8,7 +8,7 @@ public class Bomba : MonoBehaviour
     public float expForce;
     public float radius;
    
-    private void Explode()
+    private  void Explode()
     {
         Instantiate(exp, transform.position, transform.rotation);
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
