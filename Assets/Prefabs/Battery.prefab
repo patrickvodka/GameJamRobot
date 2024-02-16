@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1185350734856361479}
   - component: {fileID: 4707411263558417097}
   - component: {fileID: 2817557879566177963}
+  - component: {fileID: 7499003400721593762}
   m_Layer: 0
   m_Name: Battery
   m_TagString: Untagged
@@ -119,6 +120,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a2d68eaab5b2c469cf1d7aac91999d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &7499003400721593762
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359460704460454462}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.15
+  m_Height: 0.72
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.2, z: 0.0023296217}
 --- !u!1 &5869048849078852016
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +155,6 @@ GameObject:
   - component: {fileID: 2690338899454526202}
   - component: {fileID: 362078598902137436}
   - component: {fileID: 2959389317182684141}
-  - component: {fileID: 7641143731079607629}
   m_Layer: 0
   m_Name: Battery_Mesh
   m_TagString: Untagged
@@ -225,26 +248,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &7641143731079607629
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5869048849078852016}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.001
-  m_Height: 0.008
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.0023296217}
