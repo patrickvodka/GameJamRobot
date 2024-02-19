@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         
         int sceneCount = SceneManager.sceneCountInBuildSettings;
         levels = new Scene[sceneCount];
@@ -22,7 +22,10 @@ public class LevelManager : MonoBehaviour
     public static Scene[] levels;
     public static int currentLevelIndex = 0;
 
-
+    private void Start()
+    {
+        currentLevelIndex=SceneManager.GetActiveScene().buildIndex;
+    }
 
     public static void LoadLevel(int index)
     {
@@ -31,13 +34,14 @@ public class LevelManager : MonoBehaviour
         Debug.Log("level "+levels.Length);
         if (index < 0 || index >= levels.Length) return;
 
-        SceneManager.LoadScene(levels[index].name);
+        SceneManager.LoadScene(index);
         currentLevelIndex = index;
     }
 
     public static void LoadNextLevel()
     {
-        LoadLevel(currentLevelIndex + 1);
+        LoadLevel(currentLevelIndex+1);
+        
     }
 
     public static void LoadFirstLevel()

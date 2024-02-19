@@ -23,12 +23,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-        UpdateGameState(GameState.SelectLevel);
-        
-    }
-
+   
     public void UpdateGameState(GameState newsState)
     {
         State = newsState;

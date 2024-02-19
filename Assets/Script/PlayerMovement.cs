@@ -67,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = Vector2.up * jumpForce;
             TimeSinceJump = 0.0f;
+            
         }
     }
 
